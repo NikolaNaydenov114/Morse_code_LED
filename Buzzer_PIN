@@ -1,0 +1,12 @@
+void setup() {
+  for (int i = 0; i < 5; i++) {
+    pinMode(i, OUTPUT);
+  }
+}
+
+void loop() {
+  for (int i = 0; i < 5; i++) {
+    tone(i, 1000, 500); // Try each pin
+    delay(700);
+  }
+}
