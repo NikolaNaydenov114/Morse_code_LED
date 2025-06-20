@@ -1,0 +1,52 @@
+#define LED_PIN 1          
+#define SHORT_BUTTON 4    
+#define LONG_BUTTON 3      
+#define DEBOUNCE_MS 30     
+
+struct Button {
+  bool pressed = false;
+  bool lastState = HIGH;
+  unsigned long lastDebounceTime = 0;
+};
+Button shortBtn, longBtn;
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(SHORT_BUTTON, INPUT_PULLUP);
+  pinMode(LONG_BUTTON, INPUT_PULLUP);
+  // Startup test
+  blinkLED(100); delay(200); blinkLED(100);
+}
+
+void loop() {
+  handleButton(SHORT_BUTTON, shortBtn, 200); 
+  handleButton(LONG_BUTTON, longBtn, 600);   
+}
+
+
+void handleButton(int pin, Button &btn, int flashDuration) {
+  bool currentState = digitalRead(pin);
+  
+  
+  if (currentState != btn.lastState) {
+    btn.lastDebounceTime = millis();
+  }
+  
+ 
+  if ((millis() - btn.lastDebounceTime) > DEBOUNCE_MS) {
+    if (!btn.pressed && currentState == LOW) {  
+      btn.pressed = true;
+      blinkLED(flashDuration);
+    } 
+    else if (currentState == HIGH) {  
+      btn.pressed = false;
+    }
+  }
+  btn.lastState = currentState;
+}
+
+void blinkLED(int duration) {
+  digitalWrite(LED_PIN, HIGH);
+  delay(duration);
+  digitalWrite(LED_PIN, LOW);
+}
