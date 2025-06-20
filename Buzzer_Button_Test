@@ -1,0 +1,21 @@
+#define BUZZER 4     
+#define BTN_SHORT 3  
+#define BTN_LONG 2   
+
+void setup() {
+  pinMode(BUZZER, OUTPUT);
+  pinMode(BTN_SHORT, INPUT_PULLUP);
+  pinMode(BTN_LONG, INPUT_PULLUP);
+}
+
+void loop() {
+  if (digitalRead(BTN_SHORT) == LOW) {
+    tone(BUZZER, 1000, 100);  
+    delay(150);               
+  }
+
+  if (digitalRead(BTN_LONG) == LOW) {
+    tone(BUZZER, 1000, 400);  
+    delay(450);               
+  }
+}
