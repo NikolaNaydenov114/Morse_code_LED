@@ -1,0 +1,21 @@
+#define LED_PIN 1  // PB1 (onboard green LED)
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  int micValue = 0;
+
+  for (int analogPin = 0; analogPin <= 3; analogPin++) {
+    micValue = analogRead(analogPin);
+
+    if (micValue > 600) { 
+      digitalWrite(LED_PIN, HIGH);
+    } else {
+      digitalWrite(LED_PIN, LOW);
+    }
+
+    delay(100);
+  }
+}
